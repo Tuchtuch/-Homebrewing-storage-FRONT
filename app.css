@@ -1,0 +1,8 @@
+div#mainApp{
+    margin: 0 auto;
+    width: 800px;
+    background: silver;
+}
+div{
+    border: solid 1px black;
+}
