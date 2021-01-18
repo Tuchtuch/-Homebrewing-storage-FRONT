@@ -12,7 +12,8 @@ class AddItemToStorage extends React.Component  {
         categories: 0,
         catSelected: 0,
         loadedCategories: null,
-        rand: Math.random()
+        rand: Math.random(),
+        user: props.user
       };
     }
  
@@ -45,7 +46,7 @@ class AddItemToStorage extends React.Component  {
 
     switcherCheker(){
         if(parseInt(this.state.catSelected,10)!==0){
-            return <div><SingleItemAdder key={this.state.rand} categoryId={this.state.catSelected} /></div>          
+            return <div><SingleItemAdder user={this.state.user} storageID={this.state.storageId} key={this.state.rand} categoryId={this.state.catSelected} /></div>          
         } else {
             return <div>Wybierz kategorię</div>
         }

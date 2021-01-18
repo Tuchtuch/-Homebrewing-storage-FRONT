@@ -43,9 +43,9 @@ class ShowAllStorages extends React.Component  {
           {this.state.storages.map(this.storagesToSingleStorage)}
       </div>)
     case 2:
-        return(<div><ContentSingleStorage key={this.state.storId} storageId={this.state.storId}/><button value={3} onClick={this.handleStateSet}>Dodaj</button><button value={4} onClick={this.handleStateSet}>Usuń</button><button value={1} onClick={this.handleStateSet}>Powrót</button></div>)
+        return(<div><ContentSingleStorage user={this.state.user} key={this.state.storId} storageId={this.state.storId}/><button value={3} onClick={this.handleStateSet}>Dodaj</button><button value={4} onClick={this.handleStateSet}>Usuń</button><button value={1} onClick={this.handleStateSet}>Powrót</button></div>)
     case 3:
-        return (<div>Dodaj przedmiot do biblioteki: <AddItemToStorage storageId={this.state.storId}/></div>)
+        return (<div>Dodaj przedmiot do biblioteki: <AddItemToStorage user={this.state.user} storageId={this.state.storId}/></div>)
     case 4:
         return (<div><DelStorage storageId={this.state.storId} idUser={this.state.user}/></div>)
     default:

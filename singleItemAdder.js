@@ -1,5 +1,6 @@
 import * as React from 'react';
 //import ReactDOM from 'react-dom';
+import AddExpirationItem from './addExpiration.js';
 
 class SingleItemAdder extends React.Component  {
   constructor(props){
@@ -10,7 +11,11 @@ class SingleItemAdder extends React.Component  {
         categoryId: props.categoryId,
         items: [],
         itemSelected: 0,
-        loadedItems: null
+        loadedItems: null,
+        dateSelected: '',
+        showState: 1,
+        storageID: props.storageID,
+        user: props.user
       };
     }
 
@@ -39,22 +44,52 @@ class SingleItemAdder extends React.Component  {
     onChangeHandleItems = (e) =>{
         this.setState({itemSelected: e.target.value})
     }
+    onChangeDate = (e) =>{
+      var datowa = new Date(e.target.value)
+      this.setState({dateSelected: datowa.toLocaleDateString('en-US')})
+  }
+    
+  handleStateSet = (e) =>{
+        this.setState({showState: parseInt(e.target.value,10)})
+}
     
     switcherCheker(){
         if(parseInt(this.state.itemSelected,10)!==0){
-            return <div>wybrano: {this.state.itemSelected} - <input type="date" id="expDate" name="expDate"/></div>          
+            return <div>wybrano: {this.state.itemSelected} - <input type="date" data-date-format="MMMM DD YYYY" id="expDate" name="expDate" onChange={this.onChangeDate}/></div>          
         } else {
             return <div>Wybierz przedmiot</div>
         }
     }
 
+    addConfirmed(){
+        if(this.state.dateSelected!==''){
+          console.log(this.state.dateSelected)
+        return <div><button value={2} onClick={this.handleStateSet}>Dodaj</button></div>
+        
+        }
+    }
+
+    renderSwitch(param) {
+      switch(param) {
+        case 1:
+            return(<div id="addStorage">
+            {this.safePrinter()}
+            {this.switcherCheker()}
+            {this.addConfirmed()}
+    </div>)
+      case 2:
+          return(<div><AddExpirationItem user={this.state.user} idStorage={this.state.storageID} itemID={this.state.itemSelected} expDate={this.state.dateSelected} /></div>)
+      default:
+          return(<div>Błąd</div>)
+      }
+  }
+
+
     render(){
 
         return(
-            <div id="addStorage">
-                    {this.safePrinter()}
-                    {this.switcherCheker()}
-            </div>
+          this.renderSwitch(this.state.showState) 
+   
         )
     }
 
